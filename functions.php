@@ -2,6 +2,7 @@
 
 /******************* PLUGIN > META BOX ***********************/
 include('includes/postypes.php');
+include('includes/pagina-opciones.php');
 
 add_theme_support( 'post-thumbnails' );
 
