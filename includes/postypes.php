@@ -4,9 +4,9 @@
 //=================== POST TYPES ==================//
 //=================================================//
 /*
-register_post_type( 'plugins', array(
-    'label' => __('Plugins'),
-	'singular_label' => __('Plugins'),
+register_post_type( 'nombre', array(
+    'label' => __('Nombre'),
+	'singular_label' => __('Nombre'),
 	'public' => true,
 	'show_ui' => true,
 	'exclude_from_search' => true,
