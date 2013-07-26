@@ -1,10 +1,11 @@
 <?php
 
-//=================================================//
-//=================== POST TYPES ==================//
-//=================================================//
-/*
-register_post_type( 'nombre', array(
+
+/* ================================================= */
+/* =================== POST TYPES ================== */
+/* ================================================= */
+
+/*register_post_type( 'nombre', array(
     'label' => __('Nombre'),
 	'singular_label' => __('Nombre'),
 	'public' => true,
@@ -13,15 +14,17 @@ register_post_type( 'nombre', array(
 	'capability_type' => 'post',
 	'hierarchical' => false,
 	'menu_position' => -1,
+	'menu_icon' => get_bloginfo('template_directory') . '/img/icon.png', // 16px16
 	'rewrite' => true,
 	'supports' => array('title', 'excerpt', 'thumbnail')
 ));*/
 
-//=================================================//
-//==================== METABOXES ==================//
-//=================================================//
-/*
-$prefix = 'cf_';
+
+/* ================================================= */
+/* ==================== METABOXES ================== */
+/* ================================================= */
+
+/*$prefix = 'cf_';
 global $meta_boxes;
 $meta_boxes = array();
 
@@ -41,19 +44,19 @@ $meta_boxes[] = array(
 	)
 );*/
 
+
 /**
  * Register meta boxes
  */
-/*
-function cf_register_meta_boxes(){
+
+/*function cf_register_meta_boxes(){
 	global $meta_boxes;
 
-	if ( class_exists( 'RW_Meta_Box' ) ){
-		foreach ( $meta_boxes as $meta_box ){
-			new RW_Meta_Box( $meta_box );
+	if(class_exists('RW_Meta_Box')){
+		foreach($meta_boxes as $meta_box){
+			new RW_Meta_Box($meta_box);
 		}
 	}
 }
-add_action( 'admin_init', 'cf_register_meta_boxes' );
-*/
+add_action('admin_init', 'cf_register_meta_boxes');*/
 ?>

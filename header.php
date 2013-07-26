@@ -5,9 +5,13 @@
 <!--[if !(IE 6) | !(IE 7) | !(IE 8)  ]><!--> 
 <html <?php language_attributes(); ?>><!--<![endif]-->
 <head>
-	<meta charset="<?php bloginfo( 'charset' ); ?>" />
-	<meta name="viewport" content="width=device-width" />
+	<meta charset="<?php bloginfo('charset'); ?>" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<title><?php wp_title();?></title>
+	<link rel="icon" type="image/png" href="favicon.png">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="keywords" content="c#,html5,asp.net,meta tag"/>
 	<link rel="stylesheet" type="text/css" media="all" href="<?php bloginfo( 'stylesheet_url' ); ?>" />
 	<?php wp_head(); ?>
 </head>
