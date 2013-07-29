@@ -1,7 +1,7 @@
 <?php 
 
 include('includes/postypes.php');
-include('includes/pagina-opciones.php');
+include('includes/theme-options.php');
 
 add_theme_support('post-thumbnails');
 
