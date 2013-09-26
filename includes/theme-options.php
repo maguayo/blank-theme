@@ -1,14 +1,64 @@
 <?php
 
+/* ================================================== */
+/* ========= CHANGE TEXT "Insert into Post" ========= */
+/* ================================================== */
+
+function panel_settings_setup() {
+    global $pagenow;
+    if('media-upload.php' == $pagenow || 'async-upload.php' == $pagenow){
+        add_filter( 'gettext', 'replace_thickbox_text' , 1, 2 );
+    }
+}
+
+add_action( 'admin_init', 'panel_settings_setup' );
+
+function replace_thickbox_text($translated_text, $text){  
+    if('Insert into Post' == $text){
+        $referer = strpos( wp_get_referer(), 'wptuts-settings' );
+        if($referer != '') return 'Use this Image';
+    }
+    return $translated_text;
+}
+
+
+function delete_image( $image_url ) {
+    global $wpdb;
+    
+    // We need to get the image's meta ID..
+    $query = "SELECT ID FROM wp_posts where guid = '" . esc_url($image_url) . "' AND post_type = 'attachment'";  
+    $results = $wpdb -> get_results($query);
+
+    // And delete them (if more than one attachment is in the Library
+    foreach ( $results as $row ) {
+        wp_delete_attachment( $row -> ID );
+    }   
+}
+
+/* ================================================== */
+/* ========== JAVASCRIPT TO UPLOAD IMAGES  ========== */
+/* ================================================== */
+
+function panel_settings_enqueue_scripts(){
+    wp_register_script( 'wptuts-upload', get_template_directory_uri() .'/includes/js/wptuts-upload.js', array('jquery','media-upload','thickbox') );  
+	wp_enqueue_script('jquery');
+	wp_enqueue_script('thickbox');
+	wp_enqueue_style('thickbox');
+	wp_enqueue_script('media-upload');
+	wp_enqueue_script('wptuts-upload');
+}
+add_action('admin_enqueue_scripts', 'panel_settings_enqueue_scripts');
+
 
 /* ================================================== */
 /* ================= DEFAULT OPTIONS ================ */
 /* ================================================== */
 
-add_action( 'init', 'empty_admin_init' );
-function empty_admin_init() {
-  $panel_settings = get_option("panel_settings");
-  if ( empty( $panel_settings ) ) :
+add_action('init', 'empty_admin_init');
+function empty_admin_init(){
+  	$panel_settings = get_option("panel_settings");
+
+  	if(empty($panel_settings)):
 		$panel_settings = array(
 			/*'empty_color' => '#336699',
 			'empty_wsize' => '120px'*/
@@ -18,14 +68,13 @@ function empty_admin_init() {
 }
 
 
-
 /* ================================================== */
 /* =============== ADD THE OPTION PAGE ============== */
 /* ================================================== */
 
-add_action( 'admin_menu', 'empty_options_init' );
-function empty_options_init() {
-	$panel_settings_page = add_menu_page('Theme Options', 'Theme Options', '10', 'apariencia', 'empty_options', get_bloginfo('template_directory') . '/images/icons/config.png');
+add_action('admin_menu', 'empty_options_init');
+function empty_options_init(){
+    $panel_settings_page = add_menu_page('Theme Options', 'Theme Options', 0, 'apariencia', 'empty_options', get_bloginfo('template_directory') . '/images/icons/config.png');
 	add_action("load-{$panel_settings_page}", 'empty_load_settings_page');
 }
 
@@ -33,14 +82,14 @@ function empty_options_init() {
 /* ================================================== */
 /* ============= UPDATE THE OPTION PAGES ============ */
 /* ================================================== */
-function empty_load_settings_page() {
+function empty_load_settings_page(){
 	if($_POST["empty-settings-submit"] == 'Y'):
 		check_admin_referer("empty-settings-page");
 		empty_save_theme_settings();
 		$url_parameters = isset($_GET['tab'])? 'updated=true&tab=' . $_GET['tab'] : 'updated=true';
 		wp_redirect(admin_url('admin.php?page=apariencia&' . $url_parameters));
 		exit;
-	endif;
+	endif;	
 }
 
 
@@ -48,10 +97,10 @@ function empty_load_settings_page() {
 /* ================ SAVE THE OPTIONS ================ */
 /* ================================================== */
 
-function empty_save_theme_settings() {
+function empty_save_theme_settings(){
 	global $pagenow;
 	$panel_settings = get_option("panel_settings");
-	
+
 	if($pagenow == 'admin.php' && $_GET['page'] == 'apariencia'):
 
 		if(isset ( $_GET['tab']))
@@ -62,22 +111,25 @@ function empty_save_theme_settings() {
 	    switch ( $tab ){
 			case 'general':
 				/* OPCION DE GENERAL */
-				$panel_settings['neoxid_analytics'] = $_POST['neoxid_analytics'];
-				$panel_settings['neoxid_emailcontacta'] = $_POST['neoxid_emailcontacta'];
+				$panel_settings['panel_analytics'] = $_POST['panel_analytics'];
+				$panel_settings['panel_emailcontacta'] = $_POST['panel_emailcontacta'];
+				$panel_settings['panel_logo'] = $_POST['panel_logo'];
+				$panel_settings['panel_direccion'] = $_POST['panel_direccion'];
+				$panel_settings['panel_telefono'] = $_POST['panel_telefono'];
 				break;
 			case 'social':
 				/* OPCION DE GENERAL */
-				$panel_settings['neoxid_facebook'] = $_POST['neoxid_facebook'];
-				$panel_settings['neoxid_twitter'] = $_POST['neoxid_twitter'];
-				$panel_settings['neoxid_googleplus'] = $_POST['neoxid_googleplus'];
-				$panel_settings['neoxid_pinterest'] = $_POST['neoxid_pinterest'];
-				$panel_settings['neoxid_linkedin'] = $_POST['neoxid_linkedin'];
-				$panel_settings['neoxid_youtube'] = $_POST['neoxid_youtube'];
-				$panel_settings['neoxid_vimeo'] = $_POST['neoxid_vimeo'];
+				$panel_settings['panel_facebook'] = $_POST['panel_facebook'];
+				$panel_settings['panel_twitter'] = $_POST['panel_twitter'];
+				$panel_settings['panel_googleplus'] = $_POST['panel_googleplus'];
+				$panel_settings['panel_pinterest'] = $_POST['panel_pinterest'];
+				$panel_settings['panel_linkedin'] = $_POST['panel_linkedin'];
+				$panel_settings['panel_youtube'] = $_POST['panel_youtube'];
+				$panel_settings['panel_vimeo'] = $_POST['panel_vimeo'];
 				break;
 			case 'style' : 
 				/* OPCION DE STYLE */
-				$panel_settings['neoxid_bgcolor'] = $_POST['neoxid_bgcolor'];
+				$panel_settings['panel_bgcolor'] = $_POST['panel_bgcolor'];
 				break;
 		}
 
@@ -91,7 +143,11 @@ function empty_save_theme_settings() {
 /* ================================================== */
 
 function empty_admin_tabs($current = 'general')  { 
-    $tabs = array('general' => 'General', 'social' => 'Social', 'style' => 'Style'); //AÑADE O ELIMINA TABS
+    $tabs = array(
+    	'general' => 'General', 
+    	'social' => 'Social', 
+    	'style' => 'Style'
+    ); 
     $links = array();
     echo '<div id="icon-themes" class="icon32"><br></div>';
     echo '<h2 class="nav-tab-wrapper">';
@@ -125,6 +181,17 @@ function empty_options() {
 		    overflow: hidden;
 		    width: 465px;
 		}
+
+		#upload_logo_preview{
+			width: 300px;
+			float: right;
+		}
+
+		#upload_logo_preview img{
+			max-width:100%; 
+			display: block;
+			margin: auto;
+		}
 	</style>
 
 	<div class="wrap">
@@ -136,7 +203,7 @@ function empty_options() {
 				empty_admin_tabs('general'); /* TAB PREDETERMINADA */
 		?>
 		<div id="poststuff">
-			<form method="post" action="<?php admin_url( 'admin.php?page=apariencia' ); ?>">
+			<form method="post" action="<?php admin_url( 'admin.php?page=apariencia' ); ?>" enctype="multipart/form-data">
 			<?php
 				wp_nonce_field("empty-settings-page"); 
 				if($pagenow == 'admin.php' && $_GET['page'] == 'apariencia'){
@@ -145,19 +212,43 @@ function empty_options() {
 					else 
 						$tab = 'general'; 
 					switch($tab){
+
 						case 'general' : 
 							// OPCIONES EN GENERAL, POR EJEMPLO: 
 							?>
 							<div id="neoxid_panel" class="postbox">
 								<h3><span><?php _e('Opciones generales'); ?></span></h3>
 								<div class="inside">
+
+						            <!-- If we have any error by submiting the form, they will appear here -->
+						            <?php settings_errors( 'wptuts-settings-errors' ); ?>
+						            	
+									<div class="field">
+										<label>Subir logo: </label>
+										<?php if ( '' != $panel_settings['panel_logo'] ): ?>
+								            <input id="delete_logo_button" name="panel_delete_logo" type="submit" class="button" value="<?php _e( 'Delete Logo', 'wptuts' ); ?>" />
+								        <?php endif; ?>
+										<div id="upload_logo_preview">
+									        <img src="<?php echo $panel_settings['panel_logo']; ?>" />
+									    </div>
+										<input type="text" id="logo_url" name="panel_logo" value="<?php echo $panel_settings['panel_logo']; ?>"  />
+										<input id="upload_logo_button" type="button" class="button" value="Upload Logo" />
+									</div>
 									<div class="field">
 										<label>Google Analytics (site ID): </label>
-										<input type="text" id="neoxid_analytics" name="neoxid_analytics" value="<?php echo $panel_settings['neoxid_analytics']; ?>" placeholder="UA-XXXXX-X" />
+										<input type="text" id="neoxid_analytics" name="panel_analytics" value="<?php echo $panel_settings['panel_analytics']; ?>" placeholder="UA-XXXXX-X" />
 									</div>
 									<div class="field">
 										<label>Email contacta: </label>
-										<input type="email" id="neoxid_emailcontacta" name="neoxid_emailcontacta" value="<?php echo $panel_settings['neoxid_emailcontacta']; ?>" placeholder="name@domain.com" />
+										<input type="email" id="neoxid_emailcontacta" name="panel_emailcontacta" value="<?php echo $panel_settings['panel_emailcontacta']; ?>" placeholder="name@domain.com" />
+									</div>
+									<div class="field">
+										<label>Dirección footer: </label>
+										<input type="text" id="neoxid_direccion" name="panel_direccion" value="<?php echo $panel_settings['panel_direccion']; ?>" placeholder="Dirección que aparece en el footer" />
+									</div>
+									<div class="field">
+										<label>Teléfono: </label>
+										<input type="text" id="neoxid_telefono" name="panel_telefono" value="<?php echo $panel_settings['panel_telefono']; ?>" placeholder="953258456" />
 									</div>
 								</div>
 							</div>
@@ -175,31 +266,31 @@ function empty_options() {
 								<div class="inside">
 									<div class="field">
 										<label>Facebook URL: </label>
-										<input type="url" id="neoxid_facebook" name="neoxid_facebook" value="<?php echo $panel_settings['neoxid_facebook']; ?>" placeholder="http://facebook.com/page_name" />
+										<input type="url" id="neoxid_facebook" name="panel_facebook" value="<?php echo $panel_settings['panel_facebook']; ?>" placeholder="http://facebook.com/page_name" />
 									</div>
 									<div class="field">
 										<label>Twitter URL: </label>
-										<input type="url" id="neoxid_twitter" name="neoxid_twitter" value="<?php echo $panel_settings['neoxid_twitter']; ?>" placeholder="http://twitter.com/username" />
+										<input type="url" id="neoxid_twitter" name="panel_twitter" value="<?php echo $panel_settings['panel_twitter']; ?>" placeholder="http://twitter.com/username" />
 									</div>
 									<div class="field">
 										<label>Google Plus URL: </label>
-										<input type="url" id="neoxid_googleplus" name="neoxid_googleplus" value="<?php echo $panel_settings['neoxid_googleplus']; ?>" placeholder="http://plus.google.com/ID" />
+										<input type="url" id="neoxid_googleplus" name="panel_googleplus" value="<?php echo $panel_settings['panel_googleplus']; ?>" placeholder="http://plus.google.com/ID" />
 									</div>
 									<div class="field">
 										<label>Pinterest URL: </label>
-										<input type="url" id="neoxid_pinterest" name="neoxid_pinterest" value="<?php echo $panel_settings['neoxid_pinterest']; ?>" placeholder="http://pinterest.com/page_name" />
+										<input type="url" id="neoxid_pinterest" name="panel_pinterest" value="<?php echo $panel_settings['panel_pinterest']; ?>" placeholder="http://pinterest.com/page_name" />
 									</div>
 									<div class="field">
 										<label>Linkedin URL: </label>
-										<input type="url" id="neoxid_linkedin" name="neoxid_linkedin" value="<?php echo $panel_settings['neoxid_linkedin']; ?>" placeholder="http://linkedin.com/page_name" />
+										<input type="url" id="neoxid_linkedin" name="panel_linkedin" value="<?php echo $panel_settings['panel_linkedin']; ?>" placeholder="http://linkedin.com/page_name" />
 									</div>
 									<div class="field">
 										<label>Youtube URL: </label>
-										<input type="url" id="neoxid_youtube" name="neoxid_youtube" value="<?php echo $panel_settings['neoxid_youtube']; ?>" placeholder="http://youtube.com/page_name" />
+										<input type="url" id="neoxid_youtube" name="panel_youtube" value="<?php echo $panel_settings['panel_youtube']; ?>" placeholder="http://youtube.com/page_name" />
 									</div>
 									<div class="field">
 										<label>Vimeo URL: </label>
-										<input type="url" id="neoxid_vimeo" name="neoxid_vimeo" value="<?php echo $panel_settings['neoxid_vimeo']; ?>" placeholder="http://vimeo.com/page_name" />
+										<input type="url" id="neoxid_vimeo" name="panel_vimeo" value="<?php echo $panel_settings['panel_vimeo']; ?>" placeholder="http://vimeo.com/page_name" />
 									</div>
 								</div>
 							</div>
@@ -207,6 +298,7 @@ function empty_options() {
 							<input type="hidden" name="empty-settings-submit" value="Y" />
 						<?php	
 						break;
+
 
 
 						case 'style' : 
@@ -217,12 +309,14 @@ function empty_options() {
 								<div class="inside">
 									<div class="field">
 										<label>Color de fondo: </label>
-										<input type="color" id="neoxid_bgcolor" name="neoxid_bgcolor" value="<?php echo $panel_settings['neoxid_bgcolor']; ?>" />
+										<input type="color" id="neoxid_bgcolor" name="panel_bgcolor" value="<?php echo $panel_settings['panel_bgcolor']; ?>" />
 									</div>
 								</div>
 							</div>
 							<input type="submit" name="Submit"  class="button-primary" value="Update Settings" />
 							<input type="hidden" name="empty-settings-submit" value="Y" />
+						
+
 					</div> 		
 						<?php 
 						break;
