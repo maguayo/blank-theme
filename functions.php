@@ -155,6 +155,46 @@ function custom_excerpt($limit) {
 }
 
 /* ================================================= */
+/* =================== TAXONOMIES ================== */
+/* ================================================= */
+
+/**
+ * Add custom taxonomies
+ *
+ * Additional custom taxonomies can be defined here
+ * http://codex.wordpress.org/Function_Reference/register_taxonomy
+ */
+/*function add_custom_taxonomies() {
+    register_taxonomy('tipo', 'productos', array(
+        // Hierarchical taxonomy (like categories)
+        'hierarchical' => true,
+        'labels' => array(
+            'name' => _x( 'Categorias', 'taxonomy general name' ),
+            'singular_name' => _x( 'Categorias', 'taxonomy singular name' ),
+            'search_items' =>  __( 'Search Categorias' ),
+            'all_items' => __( 'All Categorias' ),
+            'parent_item' => __( 'Parent Categorias' ),
+            'parent_item_colon' => __( 'Parent Categorias:' ),
+            'edit_item' => __( 'Edit Categorias' ),
+            'update_item' => __( 'Update Categorias' ),
+            'add_new_item' => __( 'Add New Categorias' ),
+            'new_item_name' => __( 'New Categorias Name' ),
+            'menu_name' => __( 'Categorias' ),
+        ),
+        // Control the slugs used for this taxonomy
+        'rewrite' => array(
+            'slug' => 'tipos', // This controls the base slug that will display before each term
+            'with_front' => false, // Don't display the category base before "/locations/"
+            'hierarchical' => true // This will allow URL's like "/locations/boston/cambridge/"
+        ),
+    ));
+}
+add_action( 'init', 'add_custom_taxonomies', 0 );
+
+// Allow Text widgets to execute shortcodes
+add_filter('widget_text', 'do_shortcode');*/
+
+/* ================================================= */
 /* ==================== TWITTER ==================== */
 /* ================================================= */
 
