@@ -194,6 +194,32 @@ add_action( 'init', 'add_custom_taxonomies', 0 );
 // Allow Text widgets to execute shortcodes
 add_filter('widget_text', 'do_shortcode');*/
 
+
+/* ================================================= */
+/* =================== SHORTCODES ================== */
+/* ================================================= */
+
+
+function post_thumbnail_shortcode($atts, $content='') {
+	if(!function_exists('post_thumbnail_shortcode'))
+		return;
+
+	if(!$atts['size'])
+		$atts['size'] = 'full';
+
+	return '<span class="post_thumbnail '.$atts['class'].'">'.get_the_post_thumbnail(null,$atts['size']).'</span>';
+}
+
+function post_thumbnail($str){
+	$args = wp_parse_args($str);
+	echo post_thumbnail_shortcode($args);
+}
+
+add_shortcode('post_thumbnail', 'post_thumbnail_shortcode');
+
+
+
+
 /* ================================================= */
 /* ==================== TWITTER ==================== */
 /* ================================================= */
