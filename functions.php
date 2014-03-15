@@ -6,8 +6,6 @@ define( 'RWMB_DIR', trailingslashit( STYLESHEETPATH . '/meta-box' ) );
 // Include the meta box script
 require_once RWMB_DIR . 'meta-box.php';
 
-// Include the meta box definition (the file where you define meta boxes, see `demo/demo.php`)
-include 'demo.php';
 include('includes/postypes.php');
 include('includes/theme-options.php');
 
