@@ -74,7 +74,7 @@ function empty_admin_init(){
 
 add_action('admin_menu', 'empty_options_init');
 function empty_options_init(){
-    $panel_settings_page = add_menu_page('Theme Options', 'Theme Options', 0, 'apariencia', 'empty_options', get_bloginfo('template_directory') . '/images/icons/config.png');
+    $panel_settings_page = add_menu_page('Theme Options', 'Theme Options', 'activate_plugins', 'apariencia', 'empty_options', get_bloginfo('template_directory') . '/images/icons/config.png');
 	add_action("load-{$panel_settings_page}", 'empty_load_settings_page');
 }
 
