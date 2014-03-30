@@ -7,7 +7,7 @@
 <head>
 	<meta charset="<?php bloginfo('charset'); ?>" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title><?php wp_title();?></title>
+	<title><?php echo bloginfo("name");?><?php wp_title();?></title>
 	<link rel="icon" type="image/png" href="<?php bloginfo('template_url'); ?>/favicon.png">
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
