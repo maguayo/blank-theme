@@ -17,3 +17,15 @@
 </head>
 
 <body <?php body_class(); ?>>
+	<header></header>
+	<nav>
+		<?php 
+		$defaults = array(
+			'menu'            => 'main-top-menu',
+			'container_id'    => 'menu',
+			'menu_class'      => 'menu',
+			'fallback_cb'     => 'wp_page_menu',
+		);
+
+		wp_nav_menu( $defaults ); ?>
+	</nav>
