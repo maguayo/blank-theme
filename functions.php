@@ -152,6 +152,12 @@ function custom_excerpt($limit) {
     return $excerpt;
 }
 
+function change_footer_admin () {  
+  echo 'Desarrollado por <a href="http://www.neoxid.com">Neoxid</a>. Usando <a href="http://www.wordpress.org">WordPress</a>';  
+}  
+  
+add_filter('admin_footer_text', 'change_footer_admin');
+
 /* ================================================= */
 /* =================== TAXONOMIES ================== */
 /* ================================================= */
@@ -214,6 +220,7 @@ function post_thumbnail($str){
 }
 
 add_shortcode('post_thumbnail', 'post_thumbnail_shortcode');
+
 
 
 
