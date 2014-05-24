@@ -158,6 +158,11 @@ function change_footer_admin () {
   
 add_filter('admin_footer_text', 'change_footer_admin');
 
+
+if(function_exists('add_image_size')){ 
+    add_image_size('homepage-thumb', 575, 330, true); //(cropped)
+}
+
 /* ================================================= */
 /* =================== TAXONOMIES ================== */
 /* ================================================= */
