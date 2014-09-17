@@ -316,6 +316,28 @@ function twitter_it($text){
     return $text;
 }
 
+/* =============================================== */
+/* ================= BREADCRUMBS ================= */
+/* =============================================== */
+
+function the_breadcrumb() {
+    if (!is_home()) {
+        echo '<ul class="breadcrumbs">';
+        echo '<li><a href="'.get_option('home').'"> Inicio' . "</a> » </li>";
+        if (is_category() || is_single()) {
+            the_category('title_li=');
+            if (is_single()) {
+                echo "» ";
+                the_title();
+            }
+        } elseif (is_page()) {
+            echo '<li>' . get_the_title() . '</li>';
+        }
+        echo '</ul>';
+    }
+}
+
+
 
 
 ?>
