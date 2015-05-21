@@ -114,8 +114,10 @@ function empty_save_theme_settings(){
 				$panel_settings['panel_analytics'] = $_POST['panel_analytics'];
 				$panel_settings['panel_emailcontacta'] = $_POST['panel_emailcontacta'];
 				$panel_settings['panel_logo'] = $_POST['panel_logo'];
+				$panel_settings['favicon'] = $_POST['favicon'];
 				$panel_settings['panel_direccion'] = $_POST['panel_direccion'];
 				$panel_settings['panel_telefono'] = $_POST['panel_telefono'];
+				$panel_settings['panel_copy'] = $_POST['panel_copy'];
 				break;
 			case 'social':
 				/* OPCION DE GENERAL */
@@ -182,12 +184,14 @@ function empty_options() {
 		    width: 465px;
 		}
 
-		#upload_logo_preview{
+		#upload_logo_preview,
+		#upload_favicon_preview{
 			width: 300px;
 			float: right;
 		}
 
-		#upload_logo_preview img{
+		#upload_logo_preview img,
+		#upload_favicon_preview img{
 			max-width:100%; 
 			display: block;
 			margin: auto;
@@ -224,7 +228,7 @@ function empty_options() {
 						            <?php settings_errors( 'wptuts-settings-errors' ); ?>
 						            	
 									<div class="field">
-										<label>Subir logo: </label>
+										<label>Logo: </label>
 										<?php if ( '' != $panel_settings['panel_logo'] ): ?>
 								            <input id="delete_logo_button" name="panel_delete_logo" type="submit" class="button" value="<?php _e( 'Delete Logo', 'wptuts' ); ?>" />
 								        <?php endif; ?>
@@ -233,6 +237,17 @@ function empty_options() {
 									    </div>
 										<input type="text" id="logo_url" name="panel_logo" value="<?php echo $panel_settings['panel_logo']; ?>"  />
 										<input id="upload_logo_button" type="button" class="button" value="Upload Logo" />
+									</div>
+									<div class="field">
+										<label>Favicon: </label>
+										<?php if ( '' != $panel_settings['favicon'] ): ?>
+								            <input id="delete_favicon_button" name="panel_delete_logo" type="submit" class="button" value="<?php _e( 'Delete Favicon', 'wptuts' ); ?>" />
+								        <?php endif; ?>
+										<div id="upload_favicon_preview">
+									        <img src="<?php echo $panel_settings['favicon']; ?>" />
+									    </div>
+										<input type="text" id="favicon_url" name="favicon" value="<?php echo $panel_settings['favicon']; ?>"  />
+										<input id="upload_favicon_button" type="button" class="button" value="Upload Favicon" />
 									</div>
 									<div class="field">
 										<label>Google Analytics (site ID): </label>
@@ -249,6 +264,10 @@ function empty_options() {
 									<div class="field">
 										<label>Teléfono: </label>
 										<input type="text" id="neoxid_telefono" name="panel_telefono" value="<?php echo $panel_settings['panel_telefono']; ?>" placeholder="953258456" />
+									</div>
+									<div class="field">
+										<label>Copyright: </label>
+										<input type="text" id="panel_copy" name="panel_copy" value="<?php echo $panel_settings['panel_copy']; ?>" placeholder="© 2015 Company Name All rights reserved" />
 									</div>
 								</div>
 							</div>
