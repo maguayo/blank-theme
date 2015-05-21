@@ -1,6 +1,8 @@
     
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <script src="<?php bloginfo('template_url'); ?>/js/scripts.js"></script>
+    <script src="<?php bloginfo('template_url'); ?>/js/bootstrap.min.js"></script>
+    <script src="<?php bloginfo('template_url'); ?>/js/jquery.slicknav.min.js"></script>
+    <script src="<?php bloginfo('template_url'); ?>/js/custom.js"></script>
     
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
     <script>
