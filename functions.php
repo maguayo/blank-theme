@@ -1,10 +1,4 @@
 <?php 
-// Re-define meta box path and URL
-define( 'RWMB_URL', trailingslashit( get_stylesheet_directory_uri() . '/meta-box' ) );
-define( 'RWMB_DIR', trailingslashit( STYLESHEETPATH . '/meta-box' ) );
-
-// Include the meta box script
-require_once RWMB_DIR . 'meta-box.php';
 
 include('includes/postypes.php');
 include('includes/theme-options.php');
