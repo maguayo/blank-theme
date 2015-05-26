@@ -11,7 +11,7 @@ function panel_settings_setup() {
     }
 }
 
-add_action( 'admin_init', 'panel_settings_setup' );
+add_action('admin_init', 'panel_settings_setup');
 
 function replace_thickbox_text($translated_text, $text){  
     if('Insert into Post' == $text){
@@ -207,7 +207,7 @@ function empty_options() {
 				empty_admin_tabs('general'); /* TAB PREDETERMINADA */
 		?>
 		<div id="poststuff">
-			<form method="post" action="<?php admin_url( 'admin.php?page=apariencia' ); ?>" enctype="multipart/form-data">
+			<form method="post" action="<?php admin_url('admin.php?page=apariencia'); ?>" enctype="multipart/form-data">
 			<?php
 				wp_nonce_field("empty-settings-page"); 
 				if($pagenow == 'admin.php' && $_GET['page'] == 'apariencia'){
@@ -319,7 +319,6 @@ function empty_options() {
 						break;
 
 
-
 						case 'style' : 
 							// OPCIONES EN STYLE, POR EJEMPLO: 
 							?>
@@ -334,7 +333,6 @@ function empty_options() {
 							</div>
 							<input type="submit" name="Submit"  class="button-primary" value="Update Settings" />
 							<input type="hidden" name="empty-settings-submit" value="Y" />
-						
 
 					</div> 		
 						<?php 

@@ -7,11 +7,11 @@
 <head>
 	<meta charset="<?php bloginfo('charset'); ?>" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<title><?php echo bloginfo("name");?><?php wp_title();?></title>
+	<title><?php echo bloginfo("name");?> | <?php wp_title();?></title>
 	<link rel="icon" type="image/png" href="<?php bloginfo('template_url'); ?>/favicon.png">
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="keywords" content="c#,html5,asp.net,meta tag"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="description" content="">
+	<meta name="keywords" content=""/>
 	<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_url'); ?>/css/slicknav.min.css" />
 	<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_url'); ?>/css/bootstrap.min.css" />
 	<link rel="stylesheet" type="text/css" href="<?php bloginfo('template_url'); ?>/css/font-awesome.min.css" />
@@ -23,14 +23,12 @@
 	<header>	
 		<div class="container">
 			<nav id="menu-top">
-				<?php 
-				$defaults = array(
-					'menu'            => 'main-top-menu',
-					'container_id'    => 'menu',
-					'menu_class'      => 'menu',
-					'fallback_cb'     => 'wp_page_menu',
-				);
-				wp_nav_menu( $defaults ); ?>
+				<?php $defaults = array(
+					'menu'         => 'main-top-menu',
+					'container_id' => 'menu',
+					'menu_class'   => 'menu',
+					'fallback_cb'  => 'wp_page_menu',
+				); wp_nav_menu( $defaults ); ?>
 			</nav>
 		</div>
 	</header>
