@@ -20,28 +20,16 @@ register_post_type('inicio', array(
 		'not_found_in_trash' => __( 'No cases found in the Trash' ), 
 		'parent_item_colon'  => '',
 		'menu_name'          => 'Cases'
-	);
+	),
 	'labels' => $labels,
 	'description'         => 'Business Cases & Teaching Material',
 	'public'              => true,
 	'show_ui' 	      => true,
 	'menu_icon'           => 'dashicons-book',
 	'menu_position'       => 5,
-	'map_meta_cap'        => true,
-	'capability_type'     => array('case', 'cases'),
-	'capabilities'        => array(
-		'edit_post'             => 'edit_case',
-		'edit_posts'            => 'edit_cases',
-		'edit_others_posts'     => 'edit_other_cases',
-		'publish_posts'         => 'publish_cases',
-		'edit_publish_posts'    => 'edit_publish_cases',
-		'read_post'             => 'read_cases',
-		'read_private_posts'    => 'read_private_cases',
-		'delete_post'           => 'delete_case'
-	),
 	'supports'            => array( 'title', 'editor', 'wpcom-markdown', 'revisions' ),
-	'has_archive'         => false
-	'rewrite' 	      =>  true,
+	'has_archive'         => false,
+	'rewrite' 	      => true,
 ));
 
 
